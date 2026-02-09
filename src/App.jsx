@@ -534,6 +534,144 @@ function HowItWorks() {
   );
 }
 
+function Pricing() {
+  const plans = [
+    {
+      name: "3-Month Trial",
+      price: "$6,000",
+      period: "one-time",
+      features: [
+        "3 facilitated workshops",
+        "6–12 participants per session",
+        "Curated topics from tested curriculum",
+        "All materials and facilitation included",
+        "Post-session insights for your team",
+      ],
+      featured: false,
+    },
+    {
+      name: "Annual Plan",
+      price: "$20,000",
+      period: "per year",
+      features: [
+        "12 facilitated workshops",
+        "6–12 participants per session",
+        "Full access to topic catalog",
+        "All materials and facilitation included",
+        "Post-session insights for your team",
+        "Priority scheduling",
+      ],
+      featured: true,
+    },
+  ];
+
+  return (
+    <section id="pricing" style={{
+      padding: "100px 24px", background: COLORS.white,
+      borderTop: `1px solid ${COLORS.mist}`,
+    }}>
+      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{
+            fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
+            color: COLORS.orangeText, letterSpacing: "0.15em", textTransform: "uppercase",
+            marginBottom: "20px", textAlign: "center",
+          }}>Pricing</div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <h2 style={{
+            fontFamily: FONTS.serif, fontSize: "clamp(28px, 4.5vw, 46px)",
+            fontWeight: 500, color: COLORS.slate, lineHeight: 1.15,
+            maxWidth: "650px", margin: "0 auto 20px", letterSpacing: "-0.01em",
+            textAlign: "center",
+          }}>
+            Invest in the programming your members actually talk about.
+          </h2>
+        </FadeIn>
+
+        <FadeIn delay={0.15}>
+          <p style={{
+            fontFamily: FONTS.sans, fontSize: "16px", color: COLORS.slateLight,
+            textAlign: "center", maxWidth: "520px", margin: "0 auto 56px",
+            lineHeight: 1.6,
+          }}>
+            Simple, transparent pricing. Each plan includes a trained facilitator, proven curriculum, and everything needed to run transformational workshops.
+          </p>
+        </FadeIn>
+
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "24px", alignItems: "start",
+        }}>
+          {plans.map((plan, i) => (
+            <FadeIn key={i} delay={0.2 + i * 0.1}>
+              <div style={{
+                padding: "40px 32px",
+                borderRadius: "16px",
+                border: plan.featured ? `2px solid ${COLORS.teal}` : `1px solid ${COLORS.mist}`,
+                background: plan.featured ? COLORS.mint : COLORS.white,
+                position: "relative",
+              }}>
+                {plan.featured && (
+                  <div style={{
+                    position: "absolute", top: "-12px", left: "32px",
+                    fontFamily: FONTS.sans, fontSize: "11px", fontWeight: 600,
+                    color: COLORS.white, background: COLORS.teal,
+                    padding: "4px 14px", borderRadius: "20px",
+                    letterSpacing: "0.06em", textTransform: "uppercase",
+                  }}>Best value</div>
+                )}
+                <div style={{
+                  fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 500,
+                  color: COLORS.slateLight, letterSpacing: "0.04em",
+                  marginBottom: "16px", textTransform: "uppercase",
+                }}>{plan.name}</div>
+                <div style={{
+                  fontFamily: FONTS.serif, fontSize: "48px", fontWeight: 500,
+                  color: COLORS.slate, lineHeight: 1, marginBottom: "4px",
+                }}>{plan.price}</div>
+                <div style={{
+                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.slateLight,
+                  marginBottom: "32px",
+                }}>{plan.period}</div>
+                <ul style={{
+                  listStyle: "none", padding: 0, margin: "0 0 32px",
+                }}>
+                  {plan.features.map((f, j) => (
+                    <li key={j} style={{
+                      fontFamily: FONTS.sans, fontSize: "14px", color: COLORS.slate,
+                      padding: "8px 0",
+                      borderBottom: j < plan.features.length - 1 ? `1px solid ${COLORS.mist}` : "none",
+                      display: "flex", alignItems: "center", gap: "10px",
+                    }}>
+                      <span style={{ color: COLORS.teal, fontSize: "16px", fontWeight: 700 }}>&#10003;</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contact"
+                  style={{
+                    display: "block", textAlign: "center",
+                    padding: "14px 24px", borderRadius: "8px",
+                    fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 600,
+                    letterSpacing: "0.02em", textDecoration: "none",
+                    transition: "all 0.3s ease",
+                    background: plan.featured ? COLORS.teal : "transparent",
+                    color: plan.featured ? COLORS.white : COLORS.teal,
+                    border: plan.featured ? "none" : `1.5px solid ${COLORS.teal}`,
+                  }}
+                >Get started</a>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section style={{
@@ -867,6 +1005,7 @@ export default function EmotionalFitnessLab() {
       <WhatIs />
       <Proof />
       <HowItWorks />
+      <Pricing />
       <About />
       <ContactForm />
       <Footer />
