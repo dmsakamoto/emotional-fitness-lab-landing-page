@@ -546,27 +546,14 @@ function About() {
           gap: "56px", alignItems: "center",
         }}>
           <FadeIn>
-            <div style={{
-              width: "100%", aspectRatio: "4/5", borderRadius: "20px",
-              background: `linear-gradient(145deg, ${COLORS.mist}, ${COLORS.mint})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              position: "relative", overflow: "hidden",
-            }}>
-              <div style={{
-                position: "absolute", inset: 0,
-                background: `radial-gradient(circle at 30% 40%, ${COLORS.orange}15, transparent 60%)`,
-              }} />
-              <div style={{ textAlign: "center", position: "relative" }}>
-                <div style={{
-                  fontFamily: FONTS.serif, fontSize: "64px", color: COLORS.orange,
-                  opacity: 0.4, marginBottom: "8px",
-                }}>M</div>
-                <div style={{
-                  fontFamily: FONTS.sans, fontSize: "12px", color: COLORS.slateLight,
-                  opacity: 0.5, letterSpacing: "0.08em",
-                }}>Photo placeholder</div>
-              </div>
-            </div>
+            <img
+              src="/marina-headshot.jpeg"
+              alt="Marina Foerster"
+              style={{
+                width: "100%", aspectRatio: "4/5", borderRadius: "20px",
+                objectFit: "cover", objectPosition: "center top",
+              }}
+            />
           </FadeIn>
 
           <div>
