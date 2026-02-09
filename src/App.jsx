@@ -1,23 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 
 const COLORS = {
-  cream: "#F3F1EE",
-  warmWhite: "#FAFAF8",
-  charcoal: "#1C1B1A",
-  charcoalLight: "#36332F",
-  leather: "#6B5B50",
-  leatherText: "#524439",
-  leatherLight: "#8A7A6E",
-  leatherDeep: "#4E413A",
-  periwinkle: "#738BD4",
-  periwinkleText: "#4F6AB8",
-  periwinkleLight: "#92A5E0",
-  periwinkleMuted: "#A3B0D4",
-  accent: "#C4724C",
-  accentLight: "#D4915F",
-  accentText: "#A85C38",
-  sand: "#E0DBD5",
-  sandLight: "#EAE7E2",
+  coolWhite: "#F7F9FA",
+  white: "#FFFFFF",
+  slate: "#1C2B33",
+  slateLight: "#4A5B65",
+  gray: "#627680",
+  grayText: "#627680",
+  grayLight: "#8A969E",
+  grayDeep: "#4A5B65",
+  orange: "#FF7A2F",
+  orangeText: "#E86A20",
+  orangeLight: "#FF9A5C",
+  orangeMuted: "#FFB580",
+  teal: "#0AADA0",
+  tealLight: "#2CBFB3",
+  tealText: "#089A8E",
+  lime: "#7ACC29",
+  mist: "#DAE0E3",
+  mint: "#E8F5F3",
 };
 
 const FONTS = {
@@ -71,9 +72,9 @@ function Nav() {
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         padding: scrolled ? "14px 32px" : "22px 32px",
-        background: scrolled ? "rgba(243,241,238,0.92)" : "transparent",
+        background: scrolled ? "rgba(247,249,250,0.95)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? `1px solid ${COLORS.sand}` : "1px solid transparent",
+        borderBottom: scrolled ? `1px solid ${COLORS.mist}` : "1px solid transparent",
         transition: "all 0.4s ease",
         display: "flex", justifyContent: "space-between", alignItems: "center",
       }}
@@ -81,13 +82,13 @@ function Nav() {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <div style={{
           width: 32, height: 32, borderRadius: "50%",
-          background: `linear-gradient(135deg, ${COLORS.periwinkle}, ${COLORS.accent})`,
+          background: `linear-gradient(135deg, ${COLORS.orange}, ${COLORS.teal})`,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: "14px", fontWeight: 700, color: "#fff", fontFamily: FONTS.sans,
         }}>E</div>
         <span style={{
           fontFamily: FONTS.serif, fontSize: "18px", fontWeight: 600,
-          color: COLORS.charcoal, letterSpacing: "-0.01em",
+          color: COLORS.slate, letterSpacing: "-0.01em",
         }}>
           Emotional Fitness Lab
         </span>
@@ -96,13 +97,13 @@ function Nav() {
         href="#contact"
         style={{
           fontFamily: FONTS.sans, fontSize: "13px", fontWeight: 500,
-          color: COLORS.warmWhite, background: COLORS.charcoal,
+          color: COLORS.white, background: COLORS.slate,
           padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
           letterSpacing: "0.03em", textTransform: "uppercase",
           transition: "background 0.3s",
         }}
-        onMouseEnter={e => e.target.style.background = COLORS.accent}
-        onMouseLeave={e => e.target.style.background = COLORS.charcoal}
+        onMouseEnter={e => e.target.style.background = COLORS.teal}
+        onMouseLeave={e => e.target.style.background = COLORS.slate}
       >
         Get in Touch
       </a>
@@ -118,17 +119,17 @@ function Hero() {
       minHeight: "100vh", display: "flex", flexDirection: "column",
       justifyContent: "center", alignItems: "center", textAlign: "center",
       padding: "140px 24px 80px", position: "relative", overflow: "hidden",
-      background: COLORS.cream,
+      background: COLORS.coolWhite,
     }}>
       {/* Subtle decorative elements */}
       <div style={{
         position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px",
-        borderRadius: "50%", border: `1px solid ${COLORS.sand}`,
+        borderRadius: "50%", border: `1px solid ${COLORS.mist}`,
         opacity: 0.5, pointerEvents: "none",
       }} />
       <div style={{
         position: "absolute", bottom: "15%", left: "-8%", width: "300px", height: "300px",
-        borderRadius: "50%", background: COLORS.sandLight,
+        borderRadius: "50%", background: COLORS.mint,
         opacity: 0.4, pointerEvents: "none", filter: "blur(60px)",
       }} />
 
@@ -138,7 +139,7 @@ function Hero() {
       }}>
         <div style={{
           fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-          color: COLORS.accentText, letterSpacing: "0.18em", textTransform: "uppercase",
+          color: COLORS.tealText, letterSpacing: "0.18em", textTransform: "uppercase",
           marginBottom: "28px",
         }}>
           A new category of wellness programming
@@ -147,20 +148,20 @@ function Hero() {
 
       <h1 style={{
         fontFamily: FONTS.serif, fontSize: "clamp(42px, 7vw, 86px)",
-        fontWeight: 500, color: COLORS.charcoal, lineHeight: 1.05,
+        fontWeight: 500, color: COLORS.slate, lineHeight: 1.05,
         maxWidth: "900px", margin: "0 auto 32px",
         letterSpacing: "-0.02em",
         opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)",
         transition: "all 0.8s ease 0.4s",
       }}>
-        There's a gym for{" "}
-        <span style={{ color: COLORS.periwinkleText, fontStyle: "italic" }}>every</span>{" "}
+        There&apos;s a gym for{" "}
+        <span style={{ color: COLORS.orangeText, fontStyle: "italic" }}>every</span>{" "}
         muscle — except the ones that matter most.
       </h1>
 
       <p style={{
         fontFamily: FONTS.sans, fontSize: "clamp(16px, 2vw, 20px)",
-        color: COLORS.charcoalLight, lineHeight: 1.65, maxWidth: "580px",
+        color: COLORS.slateLight, lineHeight: 1.65, maxWidth: "580px",
         margin: "0 auto 20px", fontWeight: 400,
         opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
         transition: "all 0.8s ease 0.6s",
@@ -170,7 +171,7 @@ function Hero() {
 
       <p style={{
         fontFamily: FONTS.sans, fontSize: "clamp(14px, 1.5vw, 16px)",
-        color: COLORS.periwinkleText, lineHeight: 1.6, maxWidth: "480px",
+        color: COLORS.orangeText, lineHeight: 1.6, maxWidth: "480px",
         margin: "0 auto 44px", fontWeight: 400,
         opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
         transition: "all 0.8s ease 0.7s",
@@ -186,19 +187,19 @@ function Hero() {
           href="#contact"
           style={{
             fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 500,
-            color: COLORS.warmWhite, background: COLORS.accent,
+            color: COLORS.white, background: COLORS.teal,
             padding: "16px 40px", borderRadius: "100px", textDecoration: "none",
             letterSpacing: "0.05em", textTransform: "uppercase",
             display: "inline-block", transition: "all 0.3s",
-            boxShadow: `0 4px 24px rgba(196,114,76,0.3)`,
+            boxShadow: `0 4px 24px rgba(10,173,160,0.3)`,
           }}
           onMouseEnter={e => {
-            e.target.style.background = COLORS.charcoal;
-            e.target.style.boxShadow = `0 4px 24px rgba(28,27,26,0.3)`;
+            e.target.style.background = COLORS.slate;
+            e.target.style.boxShadow = `0 4px 24px rgba(28,43,51,0.3)`;
           }}
           onMouseLeave={e => {
-            e.target.style.background = COLORS.accent;
-            e.target.style.boxShadow = `0 4px 24px rgba(196,114,76,0.3)`;
+            e.target.style.background = COLORS.teal;
+            e.target.style.boxShadow = `0 4px 24px rgba(10,173,160,0.3)`;
           }}
         >
           Bring It To Your Space
@@ -211,14 +212,14 @@ function Hero() {
 function Problem() {
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.warmWhite,
-      borderTop: `1px solid ${COLORS.sand}`,
+      padding: "100px 24px", background: COLORS.white,
+      borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <FadeIn>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-            color: COLORS.periwinkleText, letterSpacing: "0.15em", textTransform: "uppercase",
+            color: COLORS.orangeText, letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "20px",
           }}>The gap</div>
         </FadeIn>
@@ -226,10 +227,10 @@ function Problem() {
         <FadeIn delay={0.1}>
           <h2 style={{
             fontFamily: FONTS.serif, fontSize: "clamp(28px, 4.5vw, 46px)",
-            fontWeight: 500, color: COLORS.charcoal, lineHeight: 1.15,
+            fontWeight: 500, color: COLORS.slate, lineHeight: 1.15,
             maxWidth: "750px", marginBottom: "48px", letterSpacing: "-0.01em",
           }}>
-            Your members invest in physical fitness. But emotional fitness? There's no class for that.
+            Your members invest in physical fitness. But emotional fitness? There&apos;s no class for that.
           </h2>
         </FadeIn>
 
@@ -253,16 +254,16 @@ function Problem() {
           ].map((item, i) => (
             <FadeIn key={i} delay={0.15 + i * 0.1}>
               <div style={{
-                padding: "36px 32px", background: COLORS.cream, borderRadius: "16px",
-                border: `1px solid ${COLORS.sand}`, height: "100%",
+                padding: "36px 32px", background: COLORS.coolWhite, borderRadius: "16px",
+                border: `1px solid ${COLORS.mist}`, height: "100%",
               }}>
                 <div style={{
                   fontFamily: FONTS.sans, fontSize: "11px", fontWeight: 600,
-                  color: COLORS.accentText, letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: COLORS.tealText, letterSpacing: "0.12em", textTransform: "uppercase",
                   marginBottom: "16px",
                 }}>{item.label}</div>
                 <p style={{
-                  fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.charcoalLight,
+                  fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
                   lineHeight: 1.7, margin: 0,
                 }}>{item.text}</p>
               </div>
@@ -286,13 +287,13 @@ function WhatIs() {
 
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.charcoal, color: COLORS.cream,
+      padding: "100px 24px", background: COLORS.slate, color: COLORS.coolWhite,
       position: "relative", overflow: "hidden",
     }}>
       {/* Subtle texture */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-        background: `radial-gradient(ellipse at 20% 50%, rgba(115,139,212,0.08) 0%, transparent 60%)`,
+        background: `radial-gradient(ellipse at 20% 50%, rgba(255,122,47,0.08) 0%, transparent 60%)`,
         pointerEvents: "none",
       }} />
 
@@ -300,7 +301,7 @@ function WhatIs() {
         <FadeIn>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-            color: COLORS.periwinkle, letterSpacing: "0.15em", textTransform: "uppercase",
+            color: COLORS.orange, letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "20px",
           }}>The format</div>
         </FadeIn>
@@ -318,7 +319,7 @@ function WhatIs() {
         <FadeIn delay={0.15}>
           <p style={{
             fontFamily: FONTS.sans, fontSize: "17px", lineHeight: 1.7,
-            maxWidth: "600px", marginBottom: "56px", color: COLORS.sandLight,
+            maxWidth: "600px", marginBottom: "56px", color: COLORS.mint,
             fontWeight: 400,
           }}>
             A 2-hour facilitated group session — designed for 6 to 24 participants — where people practice emotional intelligence through guided exercises, structured reflection, and real conversation. Each session focuses on a different theme from a tested, science-backed curriculum.
@@ -339,14 +340,14 @@ function WhatIs() {
             <FadeIn key={i} delay={0.2 + i * 0.08}>
               <div style={{
                 padding: "28px 24px",
-                borderLeft: `2px solid ${COLORS.accent}`,
+                borderLeft: `2px solid ${COLORS.lime}`,
               }}>
                 <div style={{
                   fontFamily: FONTS.serif, fontSize: "32px", fontWeight: 500,
-                  color: COLORS.cream, marginBottom: "4px",
+                  color: COLORS.coolWhite, marginBottom: "4px",
                 }}>{stat.num}</div>
                 <div style={{
-                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.periwinkleLight,
+                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeLight,
                   letterSpacing: "0.04em",
                 }}>{stat.label}</div>
               </div>
@@ -357,7 +358,7 @@ function WhatIs() {
         <FadeIn delay={0.3}>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "11px", fontWeight: 600,
-            color: COLORS.accentLight, letterSpacing: "0.12em", textTransform: "uppercase",
+            color: COLORS.tealLight, letterSpacing: "0.12em", textTransform: "uppercase",
             marginBottom: "24px",
           }}>Sample topics from the catalog</div>
         </FadeIn>
@@ -369,7 +370,7 @@ function WhatIs() {
             <FadeIn key={i} delay={0.35 + i * 0.05}>
               <span style={{
                 fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 400,
-                color: COLORS.cream, padding: "10px 20px",
+                color: COLORS.coolWhite, padding: "10px 20px",
                 borderRadius: "100px", border: `1px solid rgba(255,255,255,0.15)`,
                 background: "rgba(255,255,255,0.04)",
                 display: "inline-block", whiteSpace: "nowrap",
@@ -379,7 +380,7 @@ function WhatIs() {
           <FadeIn delay={0.65}>
             <span style={{
               fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 400,
-              fontStyle: "italic", color: COLORS.periwinkleLight, padding: "10px 20px",
+              fontStyle: "italic", color: COLORS.orangeLight, padding: "10px 20px",
               display: "inline-block",
             }}>+ many more</span>
           </FadeIn>
@@ -392,14 +393,14 @@ function WhatIs() {
 function Proof() {
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.cream,
-      borderTop: `1px solid ${COLORS.sand}`,
+      padding: "100px 24px", background: COLORS.coolWhite,
+      borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <FadeIn>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-            color: COLORS.periwinkleText, letterSpacing: "0.15em", textTransform: "uppercase",
+            color: COLORS.orangeText, letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "20px",
           }}>Proven demand</div>
         </FadeIn>
@@ -407,7 +408,7 @@ function Proof() {
         <FadeIn delay={0.1}>
           <h2 style={{
             fontFamily: FONTS.serif, fontSize: "clamp(28px, 4.5vw, 46px)",
-            fontWeight: 500, color: COLORS.charcoal, lineHeight: 1.15,
+            fontWeight: 500, color: COLORS.slate, lineHeight: 1.15,
             maxWidth: "700px", marginBottom: "24px", letterSpacing: "-0.01em",
           }}>
             Built at a sold-out private club. Ready for yours.
@@ -417,7 +418,7 @@ function Proof() {
         <FadeIn delay={0.15}>
           <p style={{
             fontFamily: FONTS.sans, fontSize: "17px", lineHeight: 1.7,
-            maxWidth: "580px", marginBottom: "56px", color: COLORS.charcoalLight,
+            maxWidth: "580px", marginBottom: "56px", color: COLORS.slateLight,
           }}>
             This format was developed and refined over 15 months of live workshops at an exclusive Denver social club. What started as an experiment became the most in-demand class on the calendar — regularly selling out with a growing waitlist.
           </p>
@@ -434,20 +435,20 @@ function Proof() {
           ].map((t, i) => (
             <FadeIn key={i} delay={0.2 + i * 0.1}>
               <div style={{
-                padding: "36px 32px", background: COLORS.warmWhite,
-                borderRadius: "16px", border: `1px solid ${COLORS.sand}`,
+                padding: "36px 32px", background: COLORS.white,
+                borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
                 display: "flex", flexDirection: "column", height: "100%",
               }}>
                 <div style={{
-                  fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.accent,
+                  fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.lime,
                   lineHeight: 1, marginBottom: "16px",
-                }}>"</div>
+                }}>&ldquo;</div>
                 <p style={{
-                  fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.charcoalLight,
+                  fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
                   lineHeight: 1.7, margin: "0 0 20px", flex: 1, fontStyle: "italic",
                 }}>{t.quote}</p>
                 <div style={{
-                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.periwinkleText,
+                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeText,
                 }}>— {t.note}</div>
               </div>
             </FadeIn>
@@ -479,13 +480,13 @@ function HowItWorks() {
 
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.sandLight,
+      padding: "100px 24px", background: COLORS.mint,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <FadeIn>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-            color: COLORS.periwinkleText, letterSpacing: "0.15em", textTransform: "uppercase",
+            color: COLORS.orangeText, letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "20px",
           }}>For partners</div>
         </FadeIn>
@@ -493,7 +494,7 @@ function HowItWorks() {
         <FadeIn delay={0.1}>
           <h2 style={{
             fontFamily: FONTS.serif, fontSize: "clamp(28px, 4.5vw, 46px)",
-            fontWeight: 500, color: COLORS.charcoal, lineHeight: 1.15,
+            fontWeight: 500, color: COLORS.slate, lineHeight: 1.15,
             maxWidth: "650px", marginBottom: "56px", letterSpacing: "-0.01em",
           }}>
             Bringing emotional fitness to your space is simple.
@@ -506,21 +507,21 @@ function HowItWorks() {
               <div style={{
                 display: "grid", gridTemplateColumns: "60px 1fr",
                 gap: "24px", padding: "40px 0",
-                borderTop: i === 0 ? `1px solid ${COLORS.sand}` : "none",
-                borderBottom: `1px solid ${COLORS.sand}`,
+                borderTop: i === 0 ? `1px solid ${COLORS.mist}` : "none",
+                borderBottom: `1px solid ${COLORS.mist}`,
                 alignItems: "start",
               }}>
                 <div style={{
                   fontFamily: FONTS.serif, fontSize: "28px", fontWeight: 400,
-                  color: COLORS.accent,
+                  color: COLORS.lime,
                 }}>{s.num}</div>
                 <div>
                   <h3 style={{
                     fontFamily: FONTS.serif, fontSize: "24px", fontWeight: 500,
-                    color: COLORS.charcoal, marginBottom: "12px", lineHeight: 1.25,
+                    color: COLORS.slate, marginBottom: "12px", lineHeight: 1.25,
                   }}>{s.title}</h3>
                   <p style={{
-                    fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.charcoalLight,
+                    fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
                     lineHeight: 1.7, margin: 0, maxWidth: "520px",
                   }}>{s.desc}</p>
                 </div>
@@ -536,8 +537,8 @@ function HowItWorks() {
 function About() {
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.warmWhite,
-      borderTop: `1px solid ${COLORS.sand}`,
+      padding: "100px 24px", background: COLORS.white,
+      borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <div style={{
@@ -547,21 +548,21 @@ function About() {
           <FadeIn>
             <div style={{
               width: "100%", aspectRatio: "4/5", borderRadius: "20px",
-              background: `linear-gradient(145deg, ${COLORS.sand}, ${COLORS.sandLight})`,
+              background: `linear-gradient(145deg, ${COLORS.mist}, ${COLORS.mint})`,
               display: "flex", alignItems: "center", justifyContent: "center",
               position: "relative", overflow: "hidden",
             }}>
               <div style={{
                 position: "absolute", inset: 0,
-                background: `radial-gradient(circle at 30% 40%, ${COLORS.periwinkle}15, transparent 60%)`,
+                background: `radial-gradient(circle at 30% 40%, ${COLORS.orange}15, transparent 60%)`,
               }} />
               <div style={{ textAlign: "center", position: "relative" }}>
                 <div style={{
-                  fontFamily: FONTS.serif, fontSize: "64px", color: COLORS.periwinkle,
+                  fontFamily: FONTS.serif, fontSize: "64px", color: COLORS.orange,
                   opacity: 0.4, marginBottom: "8px",
                 }}>M</div>
                 <div style={{
-                  fontFamily: FONTS.sans, fontSize: "12px", color: COLORS.charcoalLight,
+                  fontFamily: FONTS.sans, fontSize: "12px", color: COLORS.slateLight,
                   opacity: 0.5, letterSpacing: "0.08em",
                 }}>Photo placeholder</div>
               </div>
@@ -572,7 +573,7 @@ function About() {
             <FadeIn delay={0.1}>
               <div style={{
                 fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-                color: COLORS.periwinkleText, letterSpacing: "0.15em", textTransform: "uppercase",
+                color: COLORS.orangeText, letterSpacing: "0.15em", textTransform: "uppercase",
                 marginBottom: "20px",
               }}>The facilitator</div>
             </FadeIn>
@@ -580,7 +581,7 @@ function About() {
             <FadeIn delay={0.15}>
               <h2 style={{
                 fontFamily: FONTS.serif, fontSize: "clamp(28px, 4vw, 40px)",
-                fontWeight: 500, color: COLORS.charcoal, lineHeight: 1.2,
+                fontWeight: 500, color: COLORS.slate, lineHeight: 1.2,
                 marginBottom: "24px",
               }}>
                 Marina Foerster
@@ -589,7 +590,7 @@ function About() {
 
             <FadeIn delay={0.2}>
               <p style={{
-                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.charcoalLight,
+                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
                 lineHeight: 1.75, marginBottom: "20px",
               }}>
                 Marina is a coach with advanced training in neuroscience-based and experiential methods. Her work integrates Polyvagal Theory, Internal Family Systems, EMDR, Emotionally Focused Therapy, and mindfulness-based approaches — drawing from the most effective elements across disciplines rather than relying on a single model.
@@ -598,19 +599,19 @@ function About() {
 
             <FadeIn delay={0.25}>
               <p style={{
-                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.charcoalLight,
+                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
                 lineHeight: 1.75, marginBottom: "20px",
               }}>
-                After years of helping individuals transform through 1:1 coaching, she developed the EQ & You format to make deep emotional intelligence work accessible to groups. What started as an experiment at a private Denver social club became a consistently sold-out class with a waitlist — and the realization that she'd created something entirely new: an emotional fitness practice.
+                After years of helping individuals transform through 1:1 coaching, she developed the EQ &amp; You format to make deep emotional intelligence work accessible to groups. What started as an experiment at a private Denver social club became a consistently sold-out class with a waitlist — and the realization that she&apos;d created something entirely new: an emotional fitness practice.
               </p>
             </FadeIn>
 
             <FadeIn delay={0.3}>
               <p style={{
-                fontFamily: FONTS.serif, fontSize: "19px", color: COLORS.periwinkleText,
+                fontFamily: FONTS.serif, fontSize: "19px", color: COLORS.orangeText,
                 lineHeight: 1.5, fontStyle: "italic",
               }}>
-                "I wanted to create the thing that didn't exist — a place where people could practice emotional skills the way they practice physical ones. Regularly. In community. Without needing a diagnosis or a three-month commitment."
+                &ldquo;I wanted to create the thing that didn&apos;t exist — a place where people could practice emotional skills the way they practice physical ones. Regularly. In community. Without needing a diagnosis or a three-month commitment.&rdquo;
               </p>
             </FadeIn>
           </div>
@@ -636,27 +637,27 @@ function ContactForm() {
 
   const inputStyle = (field) => ({
     fontFamily: FONTS.sans, fontSize: "15px", padding: "14px 18px",
-    border: `1px solid ${focused === field ? COLORS.accent : COLORS.sand}`,
+    border: `1px solid ${focused === field ? COLORS.teal : COLORS.mist}`,
     borderRadius: "12px", outline: "none", width: "100%",
-    background: COLORS.warmWhite, color: COLORS.charcoal,
+    background: COLORS.white, color: COLORS.slate,
     transition: "border-color 0.3s",
     boxSizing: "border-box",
   });
 
   const labelStyle = {
     fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-    color: COLORS.charcoalLight, letterSpacing: "0.04em",
+    color: COLORS.slateLight, letterSpacing: "0.04em",
     marginBottom: "8px", display: "block",
   };
 
   return (
     <section id="contact" style={{
-      padding: "100px 24px", background: COLORS.charcoal,
+      padding: "100px 24px", background: COLORS.slate,
       position: "relative", overflow: "hidden",
     }}>
       <div style={{
         position: "absolute", top: "-20%", right: "-10%", width: "500px", height: "500px",
-        borderRadius: "50%", background: `radial-gradient(circle, rgba(196,114,76,0.06), transparent)`,
+        borderRadius: "50%", background: `radial-gradient(circle, rgba(10,173,160,0.06), transparent)`,
         pointerEvents: "none",
       }} />
 
@@ -664,7 +665,7 @@ function ContactForm() {
         <FadeIn>
           <div style={{
             fontFamily: FONTS.sans, fontSize: "12px", fontWeight: 500,
-            color: COLORS.accentLight, letterSpacing: "0.15em", textTransform: "uppercase",
+            color: COLORS.tealLight, letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "20px", textAlign: "center",
           }}>Get started</div>
         </FadeIn>
@@ -672,7 +673,7 @@ function ContactForm() {
         <FadeIn delay={0.1}>
           <h2 style={{
             fontFamily: FONTS.serif, fontSize: "clamp(28px, 4.5vw, 42px)",
-            fontWeight: 500, color: COLORS.cream, lineHeight: 1.15,
+            fontWeight: 500, color: COLORS.coolWhite, lineHeight: 1.15,
             marginBottom: "16px", textAlign: "center",
           }}>
             Bring emotional fitness to your space
@@ -681,11 +682,11 @@ function ContactForm() {
 
         <FadeIn delay={0.15}>
           <p style={{
-            fontFamily: FONTS.sans, fontSize: "16px", color: COLORS.sandLight,
+            fontFamily: FONTS.sans, fontSize: "16px", color: COLORS.mint,
             lineHeight: 1.65, marginBottom: "48px", textAlign: "center",
             opacity: 0.8,
           }}>
-            Interested in offering EQ & You at your venue, studio, or workplace? Leave your details and we'll be in touch.
+            Interested in offering EQ &amp; You at your venue, studio, or workplace? Leave your details and we&apos;ll be in touch.
           </p>
         </FadeIn>
 
@@ -698,19 +699,19 @@ function ContactForm() {
             }}>
               <div style={{
                 width: "56px", height: "56px", borderRadius: "50%",
-                background: COLORS.periwinkle, margin: "0 auto 24px",
+                background: COLORS.orange, margin: "0 auto 24px",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "24px", color: "#fff",
               }}>✓</div>
               <h3 style={{
-                fontFamily: FONTS.serif, fontSize: "28px", color: COLORS.cream,
+                fontFamily: FONTS.serif, fontSize: "28px", color: COLORS.coolWhite,
                 marginBottom: "12px",
               }}>Thank you!</h3>
               <p style={{
-                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.sandLight,
+                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.mint,
                 lineHeight: 1.6,
               }}>
-                We've received your information and will be in touch soon to explore how EQ & You can work in your space.
+                We&apos;ve received your information and will be in touch soon to explore how EQ &amp; You can work in your space.
               </p>
             </div>
           ) : (
@@ -723,8 +724,8 @@ function ContactForm() {
               <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                 <div>
                   <label style={labelStyle}>
-                    <span style={{ color: COLORS.sandLight }}>Full Name</span>
-                    <span style={{ color: COLORS.accent }}> *</span>
+                    <span style={{ color: COLORS.mint }}>Full Name</span>
+                    <span style={{ color: COLORS.teal }}> *</span>
                   </label>
                   <input
                     style={inputStyle("name")}
@@ -738,8 +739,8 @@ function ContactForm() {
 
                 <div>
                   <label style={labelStyle}>
-                    <span style={{ color: COLORS.sandLight }}>Email</span>
-                    <span style={{ color: COLORS.accent }}> *</span>
+                    <span style={{ color: COLORS.mint }}>Email</span>
+                    <span style={{ color: COLORS.teal }}> *</span>
                   </label>
                   <input
                     type="email"
@@ -754,8 +755,8 @@ function ContactForm() {
 
                 <div>
                   <label style={labelStyle}>
-                    <span style={{ color: COLORS.sandLight }}>Organization / Venue</span>
-                    <span style={{ color: COLORS.accent }}> *</span>
+                    <span style={{ color: COLORS.mint }}>Organization / Venue</span>
+                    <span style={{ color: COLORS.teal }}> *</span>
                   </label>
                   <input
                     style={inputStyle("org")}
@@ -772,8 +773,8 @@ function ContactForm() {
                 }}>
                   <div>
                     <label style={labelStyle}>
-                      <span style={{ color: COLORS.sandLight }}>Role</span>
-                      <span style={{ color: COLORS.periwinkleLight, fontWeight: 400 }}> (optional)</span>
+                      <span style={{ color: COLORS.mint }}>Role</span>
+                      <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
                     </label>
                     <input
                       style={inputStyle("role")}
@@ -786,15 +787,15 @@ function ContactForm() {
                   </div>
                   <div>
                     <label style={labelStyle}>
-                      <span style={{ color: COLORS.sandLight }}>Type</span>
-                      <span style={{ color: COLORS.periwinkleLight, fontWeight: 400 }}> (optional)</span>
+                      <span style={{ color: COLORS.mint }}>Type</span>
+                      <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
                     </label>
                     <select
                       style={{
                         ...inputStyle("type"),
                         appearance: "none",
                         cursor: "pointer",
-                        color: form.type ? COLORS.charcoal : "#999",
+                        color: form.type ? COLORS.slate : "#999",
                       }}
                       value={form.type}
                       onChange={e => setForm({ ...form, type: e.target.value })}
@@ -815,9 +816,9 @@ function ContactForm() {
                   disabled={!form.name || !form.email || !form.org}
                   style={{
                     fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 500,
-                    color: COLORS.warmWhite,
+                    color: COLORS.white,
                     background: (!form.name || !form.email || !form.org)
-                      ? COLORS.charcoalLight : COLORS.accent,
+                      ? COLORS.slateLight : COLORS.teal,
                     padding: "16px 40px", borderRadius: "100px", border: "none",
                     letterSpacing: "0.05em", textTransform: "uppercase",
                     cursor: (!form.name || !form.email || !form.org)
@@ -827,11 +828,11 @@ function ContactForm() {
                   }}
                   onMouseEnter={e => {
                     if (form.name && form.email && form.org)
-                      e.target.style.background = COLORS.accentLight;
+                      e.target.style.background = COLORS.tealLight;
                   }}
                   onMouseLeave={e => {
                     if (form.name && form.email && form.org)
-                      e.target.style.background = COLORS.accent;
+                      e.target.style.background = COLORS.teal;
                   }}
                 >
                   Get in Touch
@@ -848,7 +849,7 @@ function ContactForm() {
 function Footer() {
   return (
     <footer style={{
-      padding: "40px 24px", background: COLORS.charcoal,
+      padding: "40px 24px", background: COLORS.slate,
       borderTop: "1px solid rgba(255,255,255,0.06)",
       textAlign: "center",
     }}>
@@ -869,8 +870,8 @@ export default function EmotionalFitnessLab() {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background: ${COLORS.cream}; overflow-x: hidden; }
-        ::selection { background: ${COLORS.periwinkle}35; }
+        body { background: ${COLORS.coolWhite}; overflow-x: hidden; }
+        ::selection { background: ${COLORS.orange}35; }
         input::placeholder, select { font-family: ${FONTS.sans}; }
       `}</style>
       <Nav />
