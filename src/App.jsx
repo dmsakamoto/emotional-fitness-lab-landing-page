@@ -331,7 +331,7 @@ function WhatIs() {
           gap: "20px", marginBottom: "64px",
         }}>
           {[
-            { num: "2 hr", label: "Per session" },
+            { num: "2 hr", label: "Per workshop" },
             { num: "6–24", label: "Participants" },
             { num: "15+", label: "Months of testing" },
             { num: "300+", label: "Attendees and counting" },
@@ -340,7 +340,7 @@ function WhatIs() {
             <FadeIn key={i} delay={0.2 + i * 0.08}>
               <div style={{
                 padding: "28px 24px",
-                borderLeft: `2px solid ${COLORS.lime}`,
+                borderLeft: `2px solid ${COLORS.teal}`,
               }}>
                 <div style={{
                   fontFamily: FONTS.serif, fontSize: "32px", fontWeight: 500,
