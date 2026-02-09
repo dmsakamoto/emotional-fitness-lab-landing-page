@@ -440,7 +440,7 @@ function Proof() {
                 display: "flex", flexDirection: "column", height: "100%",
               }}>
                 <div style={{
-                  fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.lime,
+                  fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.teal,
                   lineHeight: 1, marginBottom: "16px",
                 }}>&ldquo;</div>
                 <p style={{
@@ -513,7 +513,7 @@ function HowItWorks() {
               }}>
                 <div style={{
                   fontFamily: FONTS.serif, fontSize: "28px", fontWeight: 400,
-                  color: COLORS.lime,
+                  color: COLORS.teal,
                 }}>{s.num}</div>
                 <div>
                   <h3 style={{
