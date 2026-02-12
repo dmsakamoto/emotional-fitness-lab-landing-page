@@ -391,6 +391,49 @@ function WhatIs() {
 }
 
 function Proof() {
+  const testimonials = [
+    { quote: "I always look forward to these workshops because there are always tangible takeaways. Marina expertly, gently, and powerfully guides us through exercises for real results.", name: "Kim, Clayton Club Member" },
+    { quote: "Marina facilitates a powerful group workshop that helps us recognize shared patterns and challenges in our growth from a fresh perspective. She creates a safe, engaging environment that encourages honest reflection, peer learning, and confidence-building. Her approach empowers us to trust our insights, step into our strengths, and leave with practical clarity and momentum for real professional advancement.", name: "Sydney, Financial Advisor" },
+    { quote: "This workshop is unlike anything else I've experienced. It gave me tools I actually use in daily life — and the space to practice and improve on them first. Marina is such a talented coach and guide.", name: "Jacqueline Wash, President & Founder, High Rider Consulting" },
+    { quote: "The best hour and half of the month. A fabulous opportunity to block out the world while I exercise and grow skills to enhance my well being and ability to bring my best self to my business and personal relationships.", name: "Mitch Zatz" },
+    { quote: "I love Marina's workshop! She provides practical tools for navigating the many challenges and situations we find ourselves in life. Unlike talk therapy that I have participated in previously, Marina's workshop provides clarity, real knowledge, and a road map to living life the best way that you can!", name: "Nicole Matta" },
+    { quote: "I look forward to attending this event every month. I always have a lightening bolt moment, and take the wisdom with me into my day, week, and month until the next session. I also appreciate the sense of community this event provides. It is a bright spot in this time of polarity in the world where people come together in a spirit of reflection and self improvement and it genuinely is a time that restores my faith in humanity.", name: "Chelsea, Media / Entertainment" },
+    { quote: "These workshops provided me with a set of tools and practices to explore my inner world, understand my patterns, and break free from personal limitations. Since attending these, I have experienced less anxiety and more confidence in my personal and professional life. Use this space to self-reflect, set your intentions, and increase your resilience.", name: "Software Engineer, FinTech" },
+    { quote: "Actionable, applicable coaching for real transformation. Freeing trapped neurons and releasing energy for real change. Needed for entrepreneurs looking for sea level growth.", name: "Founder" },
+    { quote: "I hired executive coaches in the past who taught me to trust myself, but it's hard to practice. Marina's workshops really provide the necessary practice to trust myself, creating a new found level of self-confidence. This has truly changed my life professionally and personally.", name: "Derek Sakamoto" },
+  ];
+
+  const [current, setCurrent] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [fade, setFade] = useState(true);
+  const timeoutRef = useRef(null);
+
+  const goTo = (index) => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrent(index);
+      setFade(true);
+    }, 250);
+  };
+
+  const next = () => goTo((current + 1) % testimonials.length);
+  const prev = () => goTo((current - 1 + testimonials.length) % testimonials.length);
+
+  useEffect(() => {
+    if (isHovered) return;
+    timeoutRef.current = setInterval(() => {
+      goTo(current === testimonials.length - 1 ? 0 : current + 1);
+    }, 6000);
+    return () => clearInterval(timeoutRef.current);
+  }, [current, isHovered]);
+
+  const arrowStyle = {
+    background: "none", border: `1.5px solid ${COLORS.mist}`, borderRadius: "50%",
+    width: "44px", height: "44px", display: "flex", alignItems: "center",
+    justifyContent: "center", cursor: "pointer", color: COLORS.slateLight,
+    fontSize: "20px", transition: "all 0.2s", flexShrink: 0,
+  };
+
   return (
     <section style={{
       padding: "100px 24px", background: COLORS.coolWhite,
@@ -424,36 +467,66 @@ function Proof() {
           </p>
         </FadeIn>
 
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "24px",
-        }}>
-          {[
-            { quote: "This class is unlike anything else I've experienced. It gave me tools I actually use in my daily life — not just concepts, but real skills I practice.", name: "Attendee testimonial", note: "Placeholder — real quotes coming soon" },
-            { quote: "I came for curiosity and kept coming back because every session genuinely shifted something. The group dynamic makes it so much more powerful than doing this work alone.", name: "Attendee testimonial", note: "Placeholder — real quotes coming soon" },
-            { quote: "I've done therapy, meditation, retreats — this fills a completely different need. It's the only place I go to actively practice emotional skills with other people.", name: "Attendee testimonial", note: "Placeholder — real quotes coming soon" },
-          ].map((t, i) => (
-            <FadeIn key={i} delay={0.2 + i * 0.1}>
+        <FadeIn delay={0.2}>
+          <div
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{ display: "flex", alignItems: "center", gap: "16px", justifyContent: "center" }}
+          >
+            <button onClick={prev} style={arrowStyle} aria-label="Previous testimonial">
+              &#8249;
+            </button>
+
+            <div style={{
+              maxWidth: "700px", width: "100%", height: "350px",
+              padding: "40px 36px", background: COLORS.white,
+              borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
+              display: "flex", flexDirection: "column", justifyContent: "center",
+              overflowY: "auto",
+              opacity: fade ? 1 : 0, transition: "opacity 0.25s ease",
+            }}>
               <div style={{
-                padding: "36px 32px", background: COLORS.white,
-                borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
-                display: "flex", flexDirection: "column", height: "100%",
-              }}>
-                <div style={{
-                  fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.teal,
-                  lineHeight: 1, marginBottom: "16px",
-                }}>&ldquo;</div>
-                <p style={{
-                  fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
-                  lineHeight: 1.7, margin: "0 0 20px", flex: 1, fontStyle: "italic",
-                }}>{t.quote}</p>
-                <div style={{
-                  fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeText,
-                }}>— {t.note}</div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+                fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.teal,
+                lineHeight: 1, marginBottom: "16px",
+              }}>&ldquo;</div>
+              <p style={{
+                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
+                lineHeight: 1.7, margin: "0 0 24px", fontStyle: "italic",
+              }}>{testimonials[current].quote}</p>
+              <div style={{
+                fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeText,
+                fontWeight: 500,
+              }}>— {testimonials[current].name}</div>
+            </div>
+
+            <button onClick={next} style={arrowStyle} aria-label="Next testimonial">
+              &#8250;
+            </button>
+          </div>
+
+          <div style={{
+            display: "flex", justifyContent: "center", gap: "10px",
+            marginTop: "28px",
+          }}>
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                style={{
+                  width: i === current ? "24px" : "10px",
+                  height: "10px",
+                  borderRadius: "5px",
+                  background: i === current ? COLORS.teal : COLORS.mist,
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                  transition: "all 0.3s ease",
+                }}
+              />
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
