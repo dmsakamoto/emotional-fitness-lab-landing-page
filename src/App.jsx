@@ -26,6 +26,17 @@ const FONTS = {
   sans: "'DM Sans', system-ui, sans-serif",
 };
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -62,6 +73,7 @@ function FadeIn({ children, delay = 0, style = {}, className = "" }) {
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const isMobile = useIsMobile();
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h);
@@ -71,7 +83,7 @@ function Nav() {
     <nav
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        padding: scrolled ? "14px 32px" : "22px 32px",
+        padding: scrolled ? (isMobile ? "12px 16px" : "14px 32px") : (isMobile ? "16px 16px" : "22px 32px"),
         background: scrolled ? "rgba(247,249,250,0.95)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled ? `1px solid ${COLORS.mist}` : "1px solid transparent",
@@ -79,16 +91,25 @@ function Nav() {
         display: "flex", justifyContent: "space-between", alignItems: "center",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{
+        display: "flex", alignItems: "center", gap: "10px",
+        minWidth: 0, flex: 1,
+      }}>
         <div style={{
           width: 32, height: 32, borderRadius: "50%",
           background: `linear-gradient(135deg, ${COLORS.orange}, ${COLORS.teal})`,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: "14px", fontWeight: 700, color: "#fff", fontFamily: FONTS.sans,
+          flexShrink: 0,
         }}>E</div>
         <span style={{
-          fontFamily: FONTS.serif, fontSize: "18px", fontWeight: 600,
+          fontFamily: FONTS.serif,
+          fontSize: isMobile ? "15px" : "18px",
+          fontWeight: 600,
           color: COLORS.slate, letterSpacing: "-0.01em",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
         }}>
           Emotional Fitness Lab
         </span>
@@ -98,14 +119,15 @@ function Nav() {
         style={{
           fontFamily: FONTS.sans, fontSize: "13px", fontWeight: 500,
           color: COLORS.white, background: COLORS.slate,
-          padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
+          padding: isMobile ? "8px 14px" : "10px 22px", borderRadius: "100px", textDecoration: "none",
           letterSpacing: "0.03em", textTransform: "uppercase",
-          transition: "background 0.3s",
+          transition: "background 0.3s", whiteSpace: "nowrap",
+          flexShrink: 0, marginLeft: "12px",
         }}
         onMouseEnter={e => e.target.style.background = COLORS.teal}
         onMouseLeave={e => e.target.style.background = COLORS.slate}
       >
-        Get in Touch
+        {isMobile ? "Contact" : "Get in Touch"}
       </a>
     </nav>
   );
@@ -113,22 +135,26 @@ function Nav() {
 
 function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const isMobile = useIsMobile();
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
   return (
     <section style={{
       minHeight: "100vh", display: "flex", flexDirection: "column",
       justifyContent: "center", alignItems: "center", textAlign: "center",
-      padding: "140px 24px 80px", position: "relative", overflow: "hidden",
+      padding: isMobile ? "110px 20px 60px" : "140px 24px 80px", position: "relative", overflow: "hidden",
       background: COLORS.coolWhite,
     }}>
-      {/* Subtle decorative elements */}
+      {!isMobile && (
+        <div style={{
+          position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px",
+          borderRadius: "50%", border: `1px solid ${COLORS.mist}`,
+          opacity: 0.5, pointerEvents: "none",
+        }} />
+      )}
       <div style={{
-        position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px",
-        borderRadius: "50%", border: `1px solid ${COLORS.mist}`,
-        opacity: 0.5, pointerEvents: "none",
-      }} />
-      <div style={{
-        position: "absolute", bottom: "15%", left: "-8%", width: "300px", height: "300px",
+        position: "absolute", bottom: "15%", left: "-8%",
+        width: isMobile ? "200px" : "300px",
+        height: isMobile ? "200px" : "300px",
         borderRadius: "50%", background: COLORS.mint,
         opacity: 0.4, pointerEvents: "none", filter: "blur(60px)",
       }} />
@@ -210,9 +236,10 @@ function Hero() {
 }
 
 function Problem() {
+  const isMobile = useIsMobile();
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.white,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.white,
       borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
@@ -235,8 +262,8 @@ function Problem() {
         </FadeIn>
 
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "32px",
+          display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: isMobile ? "16px" : "32px",
         }}>
           {[
             {
@@ -276,6 +303,7 @@ function Problem() {
 }
 
 function WhatIs() {
+  const isMobile = useIsMobile();
   const topics = [
     "Deep Goal Setting",
     "Approaching & Being Approachable",
@@ -287,10 +315,9 @@ function WhatIs() {
 
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.slate, color: COLORS.coolWhite,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.slate, color: COLORS.coolWhite,
       position: "relative", overflow: "hidden",
     }}>
-      {/* Subtle texture */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
         background: `radial-gradient(ellipse at 20% 50%, rgba(255,122,47,0.08) 0%, transparent 60%)`,
@@ -327,12 +354,12 @@ function WhatIs() {
         </FadeIn>
 
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: "20px", marginBottom: "64px",
+          display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: isMobile ? "12px" : "20px", marginBottom: isMobile ? "40px" : "64px",
         }}>
           {[
             { num: "2 hr", label: "Per workshop" },
-            { num: "6–24", label: "Participants" },
+            { num: "6-24", label: "Participants" },
             { num: "15+", label: "Months of testing" },
             { num: "300+", label: "Attendees and counting" },
             { num: "Drop-in", label: "Each session stands alone" },
@@ -363,9 +390,7 @@ function WhatIs() {
           }}>Sample topics from the catalog</div>
         </FadeIn>
 
-        <div style={{
-          display: "flex", flexWrap: "wrap", gap: "12px",
-        }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
           {topics.map((t, i) => (
             <FadeIn key={i} delay={0.35 + i * 0.05}>
               <span style={{
@@ -391,6 +416,7 @@ function WhatIs() {
 }
 
 function Proof() {
+  const isMobile = useIsMobile();
   const testimonials = [
     { quote: "I always look forward to these workshops because there are always tangible takeaways. Marina expertly, gently, and powerfully guides us through exercises for real results.", name: "Kim, Clayton Club Member" },
     { quote: "Marina facilitates a powerful group workshop that helps us recognize shared patterns and challenges in our growth from a fresh perspective. She creates a safe, engaging environment that encourages honest reflection, peer learning, and confidence-building. Her approach empowers us to trust our insights, step into our strengths, and leave with practical clarity and momentum for real professional advancement.", name: "Sydney, Financial Advisor" },
@@ -398,7 +424,7 @@ function Proof() {
     { quote: "The best hour and half of the month. A fabulous opportunity to block out the world while I exercise and grow skills to enhance my well being and ability to bring my best self to my business and personal relationships.", name: "Mitch Zatz" },
     { quote: "I love Marina's workshop! She provides practical tools for navigating the many challenges and situations we find ourselves in life. Unlike talk therapy that I have participated in previously, Marina's workshop provides clarity, real knowledge, and a road map to living life the best way that you can!", name: "Nicole Matta" },
     { quote: "I look forward to attending this event every month. I always have a lightening bolt moment, and take the wisdom with me into my day, week, and month until the next session. I also appreciate the sense of community this event provides. It is a bright spot in this time of polarity in the world where people come together in a spirit of reflection and self improvement and it genuinely is a time that restores my faith in humanity.", name: "Chelsea, Media / Entertainment" },
-    { quote: "These workshops provided me with a set of tools and practices to explore my inner world, understand my patterns, and break free from personal limitations. Since attending these, I have experienced less anxiety and more confidence in my personal and professional life. Use this space to self-reflect, set your intentions, and increase your resilience.", name: "Software Engineer, FinTech" },
+    { quote: "These workshops provided me with a set of tools and practices to explore my inner world, understand my patterns, and break free from personal limitations. Since attending these, I have experienced less anxiety and more confidence in my personal and professional life.", name: "Software Engineer, FinTech" },
     { quote: "Actionable, applicable coaching for real transformation. Freeing trapped neurons and releasing energy for real change. Needed for entrepreneurs looking for sea level growth.", name: "Founder" },
     { quote: "I hired executive coaches in the past who taught me to trust myself, but it's hard to practice. Marina's workshops really provide the necessary practice to trust myself, creating a new found level of self-confidence. This has truly changed my life professionally and personally.", name: "Derek Sakamoto" },
   ];
@@ -429,14 +455,33 @@ function Proof() {
 
   const arrowStyle = {
     background: "none", border: `1.5px solid ${COLORS.mist}`, borderRadius: "50%",
-    width: "44px", height: "44px", display: "flex", alignItems: "center",
+    width: isMobile ? "36px" : "44px",
+    height: isMobile ? "36px" : "44px",
+    display: "flex", alignItems: "center",
     justifyContent: "center", cursor: "pointer", color: COLORS.slateLight,
     fontSize: "20px", transition: "all 0.2s", flexShrink: 0,
   };
 
+  const cardContent = (
+    <>
+      <div style={{
+        fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.teal,
+        lineHeight: 1, marginBottom: "16px",
+      }}>&ldquo;</div>
+      <p style={{
+        fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
+        lineHeight: 1.7, margin: "0 0 24px", fontStyle: "italic",
+      }}>{testimonials[current].quote}</p>
+      <div style={{
+        fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeText,
+        fontWeight: 500,
+      }}>— {testimonials[current].name}</div>
+    </>
+  );
+
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.coolWhite,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.coolWhite,
       borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
@@ -471,43 +516,41 @@ function Proof() {
           <div
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            style={{ display: "flex", alignItems: "center", gap: "16px", justifyContent: "center" }}
           >
-            <button onClick={prev} style={arrowStyle} aria-label="Previous testimonial">
-              &#8249;
-            </button>
-
-            <div style={{
-              maxWidth: "700px", width: "100%", height: "350px",
-              padding: "40px 36px", background: COLORS.white,
-              borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
-              display: "flex", flexDirection: "column", justifyContent: "center",
-              overflowY: "auto",
-              opacity: fade ? 1 : 0, transition: "opacity 0.25s ease",
-            }}>
-              <div style={{
-                fontFamily: FONTS.serif, fontSize: "36px", color: COLORS.teal,
-                lineHeight: 1, marginBottom: "16px",
-              }}>&ldquo;</div>
-              <p style={{
-                fontFamily: FONTS.sans, fontSize: "15px", color: COLORS.slateLight,
-                lineHeight: 1.7, margin: "0 0 24px", fontStyle: "italic",
-              }}>{testimonials[current].quote}</p>
-              <div style={{
-                fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.orangeText,
-                fontWeight: 500,
-              }}>— {testimonials[current].name}</div>
-            </div>
-
-            <button onClick={next} style={arrowStyle} aria-label="Next testimonial">
-              &#8250;
-            </button>
+            {isMobile ? (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+                <div style={{
+                  width: "100%", minHeight: "280px",
+                  padding: "28px 20px", background: COLORS.white,
+                  borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
+                  display: "flex", flexDirection: "column", justifyContent: "center",
+                  opacity: fade ? 1 : 0, transition: "opacity 0.25s ease",
+                }}>
+                  {cardContent}
+                </div>
+                <div style={{ display: "flex", gap: "16px" }}>
+                  <button onClick={prev} style={arrowStyle} aria-label="Previous testimonial">&#8249;</button>
+                  <button onClick={next} style={arrowStyle} aria-label="Next testimonial">&#8250;</button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", gap: "16px", justifyContent: "center" }}>
+                <button onClick={prev} style={arrowStyle} aria-label="Previous testimonial">&#8249;</button>
+                <div style={{
+                  maxWidth: "700px", width: "100%", minHeight: "350px",
+                  padding: "40px 36px", background: COLORS.white,
+                  borderRadius: "16px", border: `1px solid ${COLORS.mist}`,
+                  display: "flex", flexDirection: "column", justifyContent: "center",
+                  opacity: fade ? 1 : 0, transition: "opacity 0.25s ease",
+                }}>
+                  {cardContent}
+                </div>
+                <button onClick={next} style={arrowStyle} aria-label="Next testimonial">&#8250;</button>
+              </div>
+            )}
           </div>
 
-          <div style={{
-            display: "flex", justifyContent: "center", gap: "10px",
-            marginTop: "28px",
-          }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "28px" }}>
             {testimonials.map((_, i) => (
               <button
                 key={i}
@@ -515,12 +558,9 @@ function Proof() {
                 aria-label={`Go to testimonial ${i + 1}`}
                 style={{
                   width: i === current ? "24px" : "10px",
-                  height: "10px",
-                  borderRadius: "5px",
+                  height: "10px", borderRadius: "5px",
                   background: i === current ? COLORS.teal : COLORS.mist,
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
+                  border: "none", cursor: "pointer", padding: 0,
                   transition: "all 0.3s ease",
                 }}
               />
@@ -533,6 +573,7 @@ function Proof() {
 }
 
 function HowItWorks() {
+  const isMobile = useIsMobile();
   const steps = [
     {
       num: "01",
@@ -553,7 +594,7 @@ function HowItWorks() {
 
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.mint,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.mint,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <FadeIn>
@@ -579,7 +620,8 @@ function HowItWorks() {
             <FadeIn key={i} delay={0.15 + i * 0.1}>
               <div style={{
                 display: "grid", gridTemplateColumns: "60px 1fr",
-                gap: "24px", padding: "40px 0",
+                gap: isMobile ? "16px" : "24px",
+                padding: isMobile ? "28px 0" : "40px 0",
                 borderTop: i === 0 ? `1px solid ${COLORS.mist}` : "none",
                 borderBottom: `1px solid ${COLORS.mist}`,
                 alignItems: "start",
@@ -608,6 +650,7 @@ function HowItWorks() {
 }
 
 function Pricing() {
+  const isMobile = useIsMobile();
   const plans = [
     {
       name: "3-Month Trial",
@@ -615,7 +658,7 @@ function Pricing() {
       period: "one-time",
       features: [
         "3 facilitated workshops",
-        "6–12 participants per session",
+        "6-12 participants per session",
         "Curated topics from tested curriculum",
         "All materials and facilitation included",
         "Post-session insights for your team",
@@ -628,7 +671,7 @@ function Pricing() {
       period: "per year",
       features: [
         "12 facilitated workshops",
-        "6–12 participants per session",
+        "6-12 participants per session",
         "Full access to topic catalog",
         "All materials and facilitation included",
         "Post-session insights for your team",
@@ -640,7 +683,7 @@ function Pricing() {
 
   return (
     <section id="pricing" style={{
-      padding: "100px 24px", background: COLORS.white,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.white,
       borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
@@ -674,13 +717,14 @@ function Pricing() {
         </FadeIn>
 
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))",
           gap: "24px", alignItems: "start",
         }}>
           {plans.map((plan, i) => (
             <FadeIn key={i} delay={0.2 + i * 0.1}>
               <div style={{
-                padding: "40px 32px",
+                padding: isMobile ? "32px 20px" : "40px 32px",
                 borderRadius: "16px",
                 border: plan.featured ? `2px solid ${COLORS.teal}` : `1px solid ${COLORS.mist}`,
                 background: plan.featured ? COLORS.mint : COLORS.white,
@@ -708,9 +752,7 @@ function Pricing() {
                   fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.slateLight,
                   marginBottom: "32px",
                 }}>{plan.period}</div>
-                <ul style={{
-                  listStyle: "none", padding: 0, margin: "0 0 32px",
-                }}>
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px" }}>
                   {plan.features.map((f, j) => (
                     <li key={j} style={{
                       fontFamily: FONTS.sans, fontSize: "14px", color: COLORS.slate,
@@ -746,15 +788,18 @@ function Pricing() {
 }
 
 function About() {
+  const isMobile = useIsMobile();
   return (
     <section style={{
-      padding: "100px 24px", background: COLORS.white,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.white,
       borderTop: `1px solid ${COLORS.mist}`,
     }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "56px", alignItems: "center",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: isMobile ? "32px" : "56px",
+          alignItems: "center",
         }}>
           <FadeIn>
             <img
@@ -763,6 +808,7 @@ function About() {
               style={{
                 width: "100%", aspectRatio: "4/5", borderRadius: "20px",
                 objectFit: "cover", objectPosition: "center top",
+                maxHeight: isMobile ? "400px" : "none",
               }}
             />
           </FadeIn>
@@ -820,17 +866,14 @@ function About() {
 }
 
 function ContactForm() {
-  const [form, setForm] = useState({
-    name: "", email: "", org: "", role: "", type: "",
-  });
+  const isMobile = useIsMobile();
+  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", type: "" });
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.name && form.email && form.org) {
-      setSubmitted(true);
-    }
+    if (form.name && form.email && form.org) setSubmitted(true);
   };
 
   const inputStyle = (field) => ({
@@ -850,12 +893,12 @@ function ContactForm() {
 
   return (
     <section id="contact" style={{
-      padding: "100px 24px", background: COLORS.slate,
+      padding: isMobile ? "64px 20px" : "100px 24px", background: COLORS.slate,
       position: "relative", overflow: "hidden",
     }}>
       <div style={{
         position: "absolute", top: "-20%", right: "-10%", width: "500px", height: "500px",
-        borderRadius: "50%", background: `radial-gradient(circle, rgba(10,173,160,0.06), transparent)`,
+        borderRadius: "50%", background: "radial-gradient(circle, rgba(10,173,160,0.06), transparent)",
         pointerEvents: "none",
       }} />
 
@@ -900,7 +943,7 @@ function ContactForm() {
                 background: COLORS.orange, margin: "0 auto 24px",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "24px", color: "#fff",
-              }}>✓</div>
+              }}>&#10003;</div>
               <h3 style={{
                 fontFamily: FONTS.serif, fontSize: "28px", color: COLORS.coolWhite,
                 marginBottom: "12px",
@@ -913,12 +956,11 @@ function ContactForm() {
               </p>
             </div>
           ) : (
-            <div
-              style={{
-                background: "rgba(255,255,255,0.03)", borderRadius: "20px",
-                border: "1px solid rgba(255,255,255,0.06)", padding: "40px 36px",
-              }}
-            >
+            <div style={{
+              background: "rgba(255,255,255,0.03)", borderRadius: "20px",
+              border: "1px solid rgba(255,255,255,0.06)",
+              padding: isMobile ? "28px 20px" : "40px 36px",
+            }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                 <div>
                   <label style={labelStyle}>
@@ -967,7 +1009,9 @@ function ContactForm() {
                 </div>
 
                 <div style={{
-                  display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px",
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                  gap: "20px",
                 }}>
                   <div>
                     <label style={labelStyle}>
@@ -1015,22 +1059,18 @@ function ContactForm() {
                   style={{
                     fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 500,
                     color: COLORS.white,
-                    background: (!form.name || !form.email || !form.org)
-                      ? COLORS.slateLight : COLORS.teal,
+                    background: (!form.name || !form.email || !form.org) ? COLORS.slateLight : COLORS.teal,
                     padding: "16px 40px", borderRadius: "100px", border: "none",
                     letterSpacing: "0.05em", textTransform: "uppercase",
-                    cursor: (!form.name || !form.email || !form.org)
-                      ? "not-allowed" : "pointer",
+                    cursor: (!form.name || !form.email || !form.org) ? "not-allowed" : "pointer",
                     transition: "all 0.3s", marginTop: "8px", width: "100%",
                     opacity: (!form.name || !form.email || !form.org) ? 0.5 : 1,
                   }}
                   onMouseEnter={e => {
-                    if (form.name && form.email && form.org)
-                      e.target.style.background = COLORS.tealLight;
+                    if (form.name && form.email && form.org) e.target.style.background = COLORS.tealLight;
                   }}
                   onMouseLeave={e => {
-                    if (form.name && form.email && form.org)
-                      e.target.style.background = COLORS.teal;
+                    if (form.name && form.email && form.org) e.target.style.background = COLORS.teal;
                   }}
                 >
                   Get in Touch
@@ -1055,23 +1095,25 @@ function Footer() {
         fontFamily: FONTS.sans, fontSize: "13px", color: "rgba(255,255,255,0.3)",
         margin: 0,
       }}>
-        © {new Date().getFullYear()} Emotional Fitness Lab. All rights reserved.
+        &copy; {new Date().getFullYear()} Emotional Fitness Lab. All rights reserved.
       </p>
     </footer>
   );
 }
 
+const globalStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #F7F9FA; overflow-x: hidden; }
+  ::selection { background: rgba(255, 122, 47, 0.2); }
+  input::placeholder, select { font-family: 'DM Sans', system-ui, sans-serif; }
+`;
+
 export default function EmotionalFitnessLab() {
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background: ${COLORS.coolWhite}; overflow-x: hidden; }
-        ::selection { background: ${COLORS.orange}35; }
-        input::placeholder, select { font-family: ${FONTS.sans}; }
-      `}</style>
+      <style>{globalStyles}</style>
       <Nav />
       <Hero />
       <Problem />
