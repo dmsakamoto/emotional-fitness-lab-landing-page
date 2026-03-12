@@ -865,15 +865,43 @@ function About() {
   );
 }
 
+const FORMSPREE_ID = "xaqpjbpl";
+
 function ContactForm() {
   const isMobile = useIsMobile();
   const [form, setForm] = useState({ name: "", email: "", org: "", role: "", type: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const [focused, setFocused] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.name && form.email && form.org) setSubmitted(true);
+    if (!form.name || !form.email || !form.org) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          organization: form.org,
+          role: form.role,
+          type: form.type,
+        }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputStyle = (field) => ({
@@ -1053,16 +1081,22 @@ function ContactForm() {
                   </div>
                 </div>
 
+                {error && (
+                  <p style={{
+                    fontFamily: FONTS.sans, fontSize: "13px", color: "#ff6b6b",
+                    margin: "0", textAlign: "center",
+                  }}>{error}</p>
+                )}
                 <button
                   onClick={handleSubmit}
-                  disabled={!form.name || !form.email || !form.org}
+                  disabled={!form.name || !form.email || !form.org || submitting}
                   style={{
                     fontFamily: FONTS.sans, fontSize: "14px", fontWeight: 500,
                     color: COLORS.white,
                     background: (!form.name || !form.email || !form.org) ? COLORS.slateLight : COLORS.teal,
                     padding: "16px 40px", borderRadius: "100px", border: "none",
                     letterSpacing: "0.05em", textTransform: "uppercase",
-                    cursor: (!form.name || !form.email || !form.org) ? "not-allowed" : "pointer",
+                    cursor: (!form.name || !form.email || !form.org || submitting) ? "not-allowed" : "pointer",
                     transition: "all 0.3s", marginTop: "8px", width: "100%",
                     opacity: (!form.name || !form.email || !form.org) ? 0.5 : 1,
                   }}
@@ -1073,7 +1107,7 @@ function ContactForm() {
                     if (form.name && form.email && form.org) e.target.style.background = COLORS.teal;
                   }}
                 >
-                  Get in Touch
+                  {submitting ? "Sending…" : "Get in Touch"}
                 </button>
               </div>
             </div>
