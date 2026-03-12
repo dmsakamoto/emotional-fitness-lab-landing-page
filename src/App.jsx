@@ -869,7 +869,7 @@ const FORMSPREE_ID = "xaqpjbpl";
 
 function ContactForm() {
   const isMobile = useIsMobile();
-  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", type: "" });
+  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", type: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -890,6 +890,7 @@ function ContactForm() {
           organization: form.org,
           role: form.role,
           type: form.type,
+          message: form.message,
         }),
       });
       if (res.ok) {
@@ -1079,6 +1080,26 @@ function ContactForm() {
                       <option value="other">Other</option>
                     </select>
                   </div>
+                </div>
+
+                <div>
+                  <label style={labelStyle}>
+                    <span style={{ color: COLORS.mint }}>What prompted you to reach out?</span>
+                    <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
+                  </label>
+                  <textarea
+                    style={{
+                      ...inputStyle("message"),
+                      resize: "vertical",
+                      minHeight: "120px",
+                      lineHeight: 1.6,
+                    }}
+                    value={form.message}
+                    onChange={e => setForm({ ...form, message: e.target.value })}
+                    onFocus={() => setFocused("message")}
+                    onBlur={() => setFocused(null)}
+                    placeholder="Share what's happening in your organisation or venue that made you curious — we'd love to understand what you're looking for before we connect."
+                  />
                 </div>
 
                 {error && (
