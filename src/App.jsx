@@ -655,14 +655,13 @@ function Pricing() {
     {
       name: "3-Month Trial",
       price: "$6,000",
-      period: "one-time",
-      subPeriod: "$2,000 per workshop · 3 sessions",
+      period: "one time fee (includes 3 sessions)",
       features: [
         "3 facilitated workshops",
-        "6-12 participants per session",
-        "Curated topics from tested curriculum",
-        "All materials and facilitation included",
-        "Post-session insights for your team",
+        "5–12 participants per session",
+        "Curated topics based on assessment",
+        "Virtual or in person",
+        "Post-session debrief call with Marina",
       ],
       featured: false,
     },
@@ -751,14 +750,8 @@ function Pricing() {
                 }}>{plan.price}</div>
                 <div style={{
                   fontFamily: FONTS.sans, fontSize: "13px", color: COLORS.slateLight,
-                  marginBottom: plan.subPeriod ? "8px" : "32px",
+                  marginBottom: "32px",
                 }}>{plan.period}</div>
-                {plan.subPeriod && (
-                  <div style={{
-                    fontFamily: FONTS.sans, fontSize: "12px", color: COLORS.slateLight,
-                    marginBottom: "32px", fontStyle: "italic",
-                  }}>{plan.subPeriod}</div>
-                )}
                 <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px" }}>
                   {plan.features.map((f, j) => (
                     <li key={j} style={{
