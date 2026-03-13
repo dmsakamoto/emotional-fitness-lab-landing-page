@@ -869,7 +869,7 @@ const FORMSPREE_ID = "xaqpjbpl";
 
 function ContactForm() {
   const isMobile = useIsMobile();
-  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", type: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", org: "", role: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -889,7 +889,6 @@ function ContactForm() {
           email: form.email,
           organization: form.org,
           role: form.role,
-          type: form.type,
           message: form.message,
         }),
       });
@@ -1037,49 +1036,19 @@ function ContactForm() {
                   />
                 </div>
 
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-                  gap: "20px",
-                }}>
-                  <div>
-                    <label style={labelStyle}>
-                      <span style={{ color: COLORS.mint }}>Role</span>
-                      <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
-                    </label>
-                    <input
-                      style={inputStyle("role")}
-                      value={form.role}
-                      onChange={e => setForm({ ...form, role: e.target.value })}
-                      onFocus={() => setFocused("role")}
-                      onBlur={() => setFocused(null)}
-                      placeholder="Your role"
-                    />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>
-                      <span style={{ color: COLORS.mint }}>Type</span>
-                      <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
-                    </label>
-                    <select
-                      style={{
-                        ...inputStyle("type"),
-                        appearance: "none",
-                        cursor: "pointer",
-                        color: form.type ? COLORS.slate : "#999",
-                      }}
-                      value={form.type}
-                      onChange={e => setForm({ ...form, type: e.target.value })}
-                      onFocus={() => setFocused("type")}
-                      onBlur={() => setFocused(null)}
-                    >
-                      <option value="">Select...</option>
-                      <option value="venue">Venue / Social Club</option>
-                      <option value="studio">Studio / Wellness Space</option>
-                      <option value="corporate">Corporate / Workplace</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
+                <div>
+                  <label style={labelStyle}>
+                    <span style={{ color: COLORS.mint }}>Role</span>
+                    <span style={{ color: COLORS.orangeLight, fontWeight: 400 }}> (optional)</span>
+                  </label>
+                  <input
+                    style={inputStyle("role")}
+                    value={form.role}
+                    onChange={e => setForm({ ...form, role: e.target.value })}
+                    onFocus={() => setFocused("role")}
+                    onBlur={() => setFocused(null)}
+                    placeholder="Your role"
+                  />
                 </div>
 
                 <div>
